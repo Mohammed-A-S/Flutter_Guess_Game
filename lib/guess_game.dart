@@ -15,7 +15,7 @@ class GuessGameScreen extends StatefulWidget
 
 class _GuessGameScreenState extends State<GuessGameScreen>
 {
-  var _message = "Guess the number Between 0-100";
+  var _message = "Guess a number Between 0-100";
   var _imgPath = "img/Thinking.png";
   var _textColor = Colors.indigo;
   var _randomNum = new Random();
@@ -25,7 +25,7 @@ class _GuessGameScreenState extends State<GuessGameScreen>
 
 
   @override
-  //?????????????
+  //instantieat only once when the program runs
   void initState()
   {
     // TODO: implement initState
@@ -35,7 +35,7 @@ class _GuessGameScreenState extends State<GuessGameScreen>
   }
 
 
-  void _checkAnswer()
+  void _checkAnswer([String? text]) // [] means optional   -    ? if the user submit nothing in the text TextField make the input null
   {
     var answer = int.parse(_textFildController.text);
 
@@ -92,8 +92,16 @@ class _GuessGameScreenState extends State<GuessGameScreen>
         appBar: AppBar
           (
             title: const Text("Guess Game"),
-            titleTextStyle: TextStyle(color: Colors.indigo, fontSize: 25, fontWeight: FontWeight.bold),
+            titleTextStyle: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
             backgroundColor: Colors.orange,
+            actions: 
+            [
+              IconButton
+              (
+                icon: Icon(Icons.restart_alt),
+                onPressed: _refresh,
+              )
+            ],
           ),
 
 
@@ -103,12 +111,12 @@ class _GuessGameScreenState extends State<GuessGameScreen>
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),//all=all_sides, symmetric=vertical_or_horizontal, onle=pick the side(top,right,down,left)
 
             child: Column
-              (
+            (
               mainAxisAlignment: MainAxisAlignment.center, //make all content in the center of the page
               children:
               [
-                 Text
-                   (
+                Text
+                  (
                       _message,
                       style: TextStyle(fontSize: 24, color: _textColor, fontWeight: FontWeight.bold),
                   ),
@@ -118,8 +126,7 @@ class _GuessGameScreenState extends State<GuessGameScreen>
 
 
 
-                Image.asset
-                  (_imgPath, width: 150, height: 150,),
+                Image.asset(_imgPath, width: 150, height: 150,),
                 //for making space between the up element and down element
                 const SizedBox(height: 50,),
 
@@ -129,8 +136,9 @@ class _GuessGameScreenState extends State<GuessGameScreen>
                   (
                       textAlign: TextAlign.center,
                       controller: _textFildController,
-                      decoration: InputDecoration(hintText: "numbers",),
+                      decoration: const InputDecoration(hintText: "Put Your Guess Here",),
                       keyboardType: TextInputType.number,
+                      onSubmitted: _checkAnswer,
                   ),
                 //for making space between the up element and down element
                 const SizedBox(height: 50,),
@@ -140,24 +148,18 @@ class _GuessGameScreenState extends State<GuessGameScreen>
                   ElevatedButton
                     (
                       onPressed: _checkAnswer,
-                      child: Text("Click Me!"),
+                      child: Text("Guess !", style: TextStyle(fontWeight: FontWeight.bold),),
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.orangeAccent),
                     ),
-
-
-                const SizedBox(height: 50,),
-
-
-
-                FloatingActionButton
-                  (
-                    backgroundColor: Colors.orangeAccent,
-                    onPressed: _refresh,
-                    tooltip: 'Refresh',
-                    child: Icon(Icons.refresh),
-                  )
               ],
             ),
+        ),
+
+        floatingActionButton: FloatingActionButton
+        (
+          backgroundColor: Colors.orange,
+          child: Icon(Icons.restart_alt),
+          onPressed: _refresh,
         ),
     );
   }
