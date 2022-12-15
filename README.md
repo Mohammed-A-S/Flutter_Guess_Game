@@ -1,6 +1,15 @@
-# test1
+# Guess Game
 
-A new Flutter project.
+A training on My Flutter project.
+
+What i have learned:
+stful, stless, ElevatedButton, floatingActionButton, 
+
+
+
+
+
+
 
 ## Getting Started
 
